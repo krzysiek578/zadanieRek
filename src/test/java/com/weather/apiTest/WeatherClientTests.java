@@ -4,14 +4,12 @@ import com.weather.webClient.weather.WeatherClient;
 import com.weather.webClient.weather.clientDTO.ClientWeatherDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.Assert;
 
 
 @SpringBootTest
-public class weatherClient {
+public class WeatherClientTests {
 
     @Mock
     WeatherClient weatherClient;

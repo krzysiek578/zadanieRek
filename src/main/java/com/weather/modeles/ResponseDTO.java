@@ -9,7 +9,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class ResponseDTO {
     private ResponseUnitsDTO units;
     private List<ResponseWeather> forecast = new ArrayList<>();

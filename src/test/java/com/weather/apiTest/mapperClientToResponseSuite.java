@@ -1,6 +1,6 @@
 package com.weather.apiTest;
 
-import com.weather.mappers.MapperClientToResponse;
+import com.weather.mappers.WeatherMapper;
 import com.weather.modeles.ResponseDTO;
 import com.weather.modeles.ResponseWeather;
 import com.weather.modeles.ResponseWeatherForHour;
@@ -9,7 +9,6 @@ import com.weather.webClient.weather.clientDTO.ClientWeatherDTO;
 import com.weather.webClient.weather.clientDTO.ClientWeatherHourlyDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -20,25 +19,25 @@ import java.util.List;
 public class mapperClientToResponseSuite {
 
     @Autowired
-    MapperClientToResponse mapperClientToResponse;
+    WeatherMapper weatherMapper;
 
 
     @Test
     public void testMapClientWeatherDTOToResponseDTOUnits() {
         //Given
-        ClientWeatherHourlyDTO clientWeatherHourlyDTO = new ClientWeatherHourlyDTO(
+        final ClientWeatherHourlyDTO clientWeatherHourlyDTO = new ClientWeatherHourlyDTO(
                 List.of(LocalDateTime.of(2022, 11, 12, 13, 30)),
                 List.of(2.00),
                 List.of(20.00),
                 List.of(1.0),
                 List.of(0.0)
         );
-        ClientUnitsDTO clientUnitsDTO = new ClientUnitsDTO("time", "temp", "wind", "rain", "snow");
-        ClientWeatherDTO clientWeatherDTO = new ClientWeatherDTO();
+        final ClientUnitsDTO clientUnitsDTO = new ClientUnitsDTO("time", "temp", "wind", "rain", "snow");
+        final ClientWeatherDTO clientWeatherDTO = new ClientWeatherDTO();
         clientWeatherDTO.setHourly(clientWeatherHourlyDTO);
         clientWeatherDTO.setHourly_units(clientUnitsDTO);
         //When
-        ResponseDTO responseDTO = mapperClientToResponse.mapToResponseObject(clientWeatherDTO);
+        final ResponseDTO responseDTO = weatherMapper.mapToResponseObject(clientWeatherDTO);
         //Then
         Assertions.assertNotNull(responseDTO);
         Assertions.assertNotNull(responseDTO.getUnits());
@@ -55,49 +54,51 @@ public class mapperClientToResponseSuite {
     @Test
     public void testMapClientWeatherDTOToResponseDTOWeather() {
         //Given
-        ClientWeatherHourlyDTO clientWeatherHourlyDTO = new ClientWeatherHourlyDTO(
+        final ClientWeatherHourlyDTO clientWeatherHourlyDTO = new ClientWeatherHourlyDTO(
                 List.of(LocalDateTime.of(2022, 11, 12, 13, 30)),
                 List.of(2.00),
                 List.of(20.00),
                 List.of(1.0),
                 List.of(0.0)
         );
-        ClientUnitsDTO clientUnitsDTO = new ClientUnitsDTO("time", "temp", "wind", "rain", "snow");
-        ClientWeatherDTO clientWeatherDTO = new ClientWeatherDTO();
+        final ClientUnitsDTO clientUnitsDTO = new ClientUnitsDTO("time", "temp", "wind", "rain", "snow");
+        final ClientWeatherDTO clientWeatherDTO = new ClientWeatherDTO();
         clientWeatherDTO.setHourly(clientWeatherHourlyDTO);
         clientWeatherDTO.setHourly_units(clientUnitsDTO);
         //When
-        ResponseDTO responseDTO = mapperClientToResponse.mapToResponseObject(clientWeatherDTO);
+        final ResponseDTO responseDTO = weatherMapper.mapToResponseObject(clientWeatherDTO);
         //Then
-        ResponseWeather responseWeatherAfterMaping = responseDTO.getForecast().get(0);
+        final ResponseWeather responseWeatherAfterMapping = responseDTO.getForecast().get(0);
 
-        Assertions.assertEquals(2022, responseWeatherAfterMaping.getDate().getYear());
-        Assertions.assertEquals(11, responseWeatherAfterMaping.getDate().getMonthValue());
-        Assertions.assertEquals(12, responseWeatherAfterMaping.getDate().getDayOfMonth());
-        Assertions.assertEquals(1, responseWeatherAfterMaping.getDatapoints().size());
+        Assertions.assertEquals(2022, responseWeatherAfterMapping.getDate().getYear());
+        Assertions.assertEquals(11, responseWeatherAfterMapping.getDate().getMonthValue());
+        Assertions.assertEquals(12, responseWeatherAfterMapping.getDate().getDayOfMonth());
+        Assertions.assertEquals(1, responseWeatherAfterMapping.getDatapoints().size());
 
     }
 
     @Test
     public void testMapClientWeatherDTOToResponseDTOWeatherForHour() {
         //Given
-        ClientWeatherHourlyDTO clientWeatherHourlyDTO = new ClientWeatherHourlyDTO(
+        final ClientWeatherHourlyDTO clientWeatherHourlyDTO = new ClientWeatherHourlyDTO(
                 List.of(LocalDateTime.of(2022, 11, 12, 13, 30)),
                 List.of(2.00), // temp
                 List.of(20.00), // wind
                 List.of(1.0), // rain
                 List.of(0.0) // snow
         );
-        ClientUnitsDTO clientUnitsDTO = new ClientUnitsDTO("time", "temp", "wind", "rain", "snow");
-        ClientWeatherDTO clientWeatherDTO = new ClientWeatherDTO();
+
+        final ClientUnitsDTO clientUnitsDTO = new ClientUnitsDTO("time", "temp", "wind", "rain", "snow");
+        final ClientWeatherDTO clientWeatherDTO = new ClientWeatherDTO();
+
         clientWeatherDTO.setHourly(clientWeatherHourlyDTO);
         clientWeatherDTO.setHourly_units(clientUnitsDTO);
         //When
-        ResponseDTO responseDTO = mapperClientToResponse.mapToResponseObject(clientWeatherDTO);
+        final ResponseDTO responseDTO = weatherMapper.mapToResponseObject(clientWeatherDTO);
         //Then
 
-        ResponseWeather responseWeatherAfterMaping = responseDTO.getForecast().get(0);
-        ResponseWeatherForHour responseWeatherForHour = responseWeatherAfterMaping.getDatapoints().get(0);
+        final ResponseWeather responseWeatherAfterMaping = responseDTO.getForecast().get(0);
+        final ResponseWeatherForHour responseWeatherForHour = responseWeatherAfterMaping.getDatapoints().get(0);
 
         Assertions.assertEquals(13, responseWeatherForHour.getTime().getHour());
         Assertions.assertEquals(30, responseWeatherForHour.getTime().getMinute());

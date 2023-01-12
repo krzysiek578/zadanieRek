@@ -2,7 +2,7 @@ package com.weather.controllers;
 
 
 import com.weather.services.WeatherService;
-import com.weather.mappers.MapperClientToResponse;
+import com.weather.mappers.WeatherMapper;
 import com.weather.modeles.ResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class WeatherController {
 
     private final WeatherService weatherService;
-    private final MapperClientToResponse mapperClientToResponse;
+    private final WeatherMapper weatherMapper;
 
-    @GetMapping(value = "/weather{latitude}{longitude}")
+    @GetMapping(value = "/weather")
     public ResponseDTO lookWeather(@RequestParam("latitude") final double lat, @RequestParam("longitude") final double lon) {
-        return mapperClientToResponse.mapToResponseObject(weatherService.getWeather(lat, lon));
+        return weatherMapper.mapToResponseObject(weatherService.getWeather(lat, lon));
     }
 }

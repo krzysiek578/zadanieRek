@@ -1,5 +1,5 @@
 package com.weather.mappers;
 
-public interface MapperResponseInterface<T, C>{
+public interface Mapper<T, C>{
     T mapToResponseObject(C toMap);
 }

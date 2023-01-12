@@ -2,7 +2,7 @@ package com.weather.apiTest;
 
 import com.weather.controllers.WeatherController;
 import com.weather.services.WeatherService;
-import com.weather.mappers.MapperClientToResponse;
+import com.weather.mappers.WeatherMapper;
 import com.weather.webClient.weather.clientDTO.ClientWeatherDTO;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -25,7 +25,7 @@ public class weatherControllerSuite {
     ClientWeatherDTO clientWeatherDTO;
 
     @Mock
-    MapperClientToResponse mapperClientToResponse;
+    WeatherMapper weatherMapper;
 
 
     @Test

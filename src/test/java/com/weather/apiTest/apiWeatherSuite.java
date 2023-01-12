@@ -1,27 +1,40 @@
 package com.weather.apiTest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.weather.controllers.WeatherController;
 import com.weather.modeles.ResponseDTO;
+import com.weather.webClient.weather.WeatherClient;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import static org.springframework.web.reactive.function.client.WebClient.Builder;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 public class apiWeatherSuite {
+
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    WeatherController weatherController;
+
+    @Autowired
+    WeatherClient weatherClient;
+
 
     @Test
     public void testEndpointGet() throws Exception {

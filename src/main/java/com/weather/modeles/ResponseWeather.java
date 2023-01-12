@@ -10,7 +10,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class ResponseWeather {
     private LocalDate date;
     private List<ResponseWeatherForHour> datapoints = new ArrayList<>();
