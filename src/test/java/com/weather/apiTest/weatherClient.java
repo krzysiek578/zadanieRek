@@ -21,6 +21,7 @@ public class weatherClient {
     public void getWeatherForLatitudeLongitude() {
         //Given
         final ClientWeatherDTO clientWeatherDTO = weatherClient.getWeatherForLatitudeLongitude(23.00, 23.00);
+
         //When
         Assertions.assertNull(clientWeatherDTO);
     }

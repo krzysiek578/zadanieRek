@@ -16,7 +16,6 @@ public class WeatherController {
     private final WeatherService weatherService;
     private final MapperClientToResponse mapperClientToResponse;
 
-    //?szerokosc=42&wysokosc=60 Dodaj request param
     @GetMapping(value = "/weather{latitude}{longitude}")
     public ResponseDTO lookWeather(@RequestParam("latitude") final double lat, @RequestParam("longitude") final double lon) {
         return mapperClientToResponse.mapToResponseObject(weatherService.getWeather(lat, lon));
